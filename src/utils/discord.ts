@@ -9,11 +9,11 @@ import {
   TextInputBuilder,
   TextInputStyle,
   ChannelType,
-  BaseGuildTextChannel,
+  BaseGuildTextChannel
 } from 'discord.js'
-const wait = require('util').promisify(setTimeout)
 import axios from 'axios'
 import { DiscordKeys } from '@Config/DiscordOptions'
+const wait = require('util').promisify(setTimeout)
 
 const Embed = (
   title: string,
@@ -28,7 +28,7 @@ const Embed = (
 }
 
 const Webhook = (url: string): WebhookClient => {
-  const webhook = new WebhookClient({ url: url })
+  const webhook = new WebhookClient({ url })
   return webhook
 }
 
@@ -95,20 +95,20 @@ const createThread = async ({
   type,
   reason,
   members,
-  message,
+  message
 }: optsThread) => {
   const thread = await channel.threads
     .create({
       name,
       type,
-      reason,
+      reason
     })
     .catch((err: any) => {
       console.log(err)
       throw new Error(err)
     })
 
-  if (members) {
+  if (members != null) {
     members.forEach(async (member) => {
       await thread.members.add(member)
     })
@@ -138,63 +138,57 @@ const deleteMessageTime = async (msg: any, time: number = 5) => {
 }
 
 const msgEdit = (int: any, client: any, data: any, msg: any) => {
-  // @ts-ignore
   int?.message
     ?.edit({
-      // @ts-ignore
       embeds: int.message.embeds,
-      // @ts-ignore
       content: int.message.content,
-      // @ts-ignore
       components: int.message.components,
-      ...data,
+      ...data
     })
     .then(() => int.reply({ content: msg, ephemeral: true }))
     .catch((e: any) => {
       int.reply({
         content: `Ocurrio un error al editar el mensaje: ${e.message}`,
-        ephemeral: true,
+        ephemeral: true
       })
       client.logger('aceptarMod', 'error', e.stack)
     })
 }
 
 const sendMessageMemberDM_API = async (member: any, message: any, id: any) => {
-  // enviar un mensaje privado al usuario usando la API de discord
   try {
-    const url = `https://discord.com/api/v8/users/@me/channels`
+    const url = 'https://discord.com/api/v8/users/@me/channels'
     const headers = {
       Authorization: `Bot ${DiscordKeys.DISCORD_TOKEN}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
 
     const data = {
-      recipient_id: member,
+      recipient_id: member
     }
 
-    const res = await axios.post(url, data, { headers: headers })
+    const res = await axios.post(url, data, { headers })
     const channel = res.data
 
     const url2 = `https://discord.com/api/v8/channels/${channel.id}/messages`
     const headers2 = {
       Authorization: `Bot ${DiscordKeys.DISCORD_TOKEN}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     }
 
-    // botones
     const buttons = [
       {
         type: 2,
         style: 1,
         label: 'Aceptar',
-        custom_id: `fbss-${id}`,
+        custom_id: `fbss-${id}`
       },
       {
         type: 2,
         style: 4,
         label: 'Rechazar',
-        custom_id: `fbsn-${id}`,
-      },
+        custom_id: `fbsn-${id}`
+      }
     ]
 
     const data2 = {
@@ -202,9 +196,9 @@ const sendMessageMemberDM_API = async (member: any, message: any, id: any) => {
       components: [
         {
           type: 1,
-          components: buttons,
-        },
-      ],
+          components: buttons
+        }
+      ]
     }
 
     const res2 = await axios.post(url2, data2, { headers: headers2 })
@@ -227,5 +221,5 @@ export {
   createThread,
   deleteMessageTime,
   msgEdit,
-  sendMessageMemberDM_API,
+  sendMessageMemberDM_API
 }
