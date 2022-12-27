@@ -1,6 +1,4 @@
 import { Client, ClientOptions, Collection } from 'discord.js'
-// @ts-ignore
-import { NotionService } from '../lib/Notion'
 import { LoadFiles } from '@Utils/loadFiles'
 import { Logger } from '@Utils/Logger'
 import { Logger as Log } from '@Types/Logger'
@@ -19,8 +17,7 @@ export class DiscordClient extends Client {
   modals: Collection<string, DiscordComman>
   MessageCommand: Collection<any, any>
 
-
-  constructor(opts: ClientOptions) {
+  constructor (opts: ClientOptions) {
     super(opts)
 
     this.logger = Logger
@@ -33,11 +30,11 @@ export class DiscordClient extends Client {
     this.loadEvents()
     this.loadCommands()
     this.logger('DiscordClient', 'info', 'Discord client loaded')
-    this.logger('Mode', 'warn', 'Enviroment: ' + (Boolean(MODE_DEV) ? 'Development' : 'Production'))
+    this.logger('Mode', 'warn', 'Enviroment: ' + (MODE_DEV ? 'Development' : 'Production'))
   }
 
-  loadEvents() {
-    LoadFiles(`${Boolean(MODE_DEV) ? 'src': 'dist'}/events/discord`, `${Boolean(MODE_DEV) ? 'ts': 'js'}`).then((files) => {
+  loadEvents () {
+    LoadFiles(`${MODE_DEV ? 'src' : 'dist'}/events/discord`, `${MODE_DEV ? 'ts' : 'js'}`).then((files) => {
       files.forEach((file) => {
         const dir = path.resolve(file)
         const event = require(dir).default
@@ -46,8 +43,9 @@ export class DiscordClient extends Client {
       })
     })
   }
-  async loadCommands() {
-    const files = await LoadFiles(`${Boolean(Boolean(MODE_DEV)) ? 'src': 'dist'}/commands/slash`, `${Boolean(Boolean(MODE_DEV)) ? 'ts': 'js'}`)
+
+  async loadCommands () {
+    const files = await LoadFiles(`${MODE_DEV ? 'src' : 'dist'}/commands/slash`, `${MODE_DEV ? 'ts' : 'js'}`)
     files.forEach((file) => {
       const dir = path.resolve(file)
       const commandDir = require(dir).default
@@ -69,7 +67,7 @@ export class DiscordClient extends Client {
       }
     })
 
-    const messageFiles = await LoadFiles(`${Boolean(MODE_DEV) ? 'src': 'dist'}/commands/message`, `${Boolean(MODE_DEV) ? 'ts': 'js'}`)
+    const messageFiles = await LoadFiles(`${MODE_DEV ? 'src' : 'dist'}/commands/message`, `${MODE_DEV ? 'ts' : 'js'}`)
     messageFiles.forEach((file) => {
       const dir = path.resolve(file)
       const command = require(dir).default
@@ -77,7 +75,7 @@ export class DiscordClient extends Client {
       this.logger('LoadCommandsMsg', 'info', `Loaded command ${command.name}`)
     })
 
-    const buttonFiles = await LoadFiles(`${Boolean(MODE_DEV) ? 'src': 'dist'}/commands/button`, `${Boolean(MODE_DEV) ? 'ts': 'js'}`)
+    const buttonFiles = await LoadFiles(`${MODE_DEV ? 'src' : 'dist'}/commands/button`, `${MODE_DEV ? 'ts' : 'js'}`)
     buttonFiles.forEach((file) => {
       const dir = path.resolve(file)
       const button = require(dir).default
@@ -89,7 +87,7 @@ export class DiscordClient extends Client {
       )
     })
 
-    const modalFiles = await LoadFiles(`${Boolean(MODE_DEV) ? 'src': 'dist'}/commands/modal`, `${Boolean(MODE_DEV) ? 'ts': 'js'}`)
+    const modalFiles = await LoadFiles(`${MODE_DEV ? 'src' : 'dist'}/commands/modal`, `${MODE_DEV ? 'ts' : 'js'}`)
     modalFiles.forEach((file) => {
       const dir = path.resolve(file)
       const modal = require(dir).default
@@ -98,7 +96,7 @@ export class DiscordClient extends Client {
     })
   }
 
-  async publishCommands() {
+  async publishCommands () {
     try {
       const commands = this.slashCommands.map((command) => command.build())
       await this.application?.commands.set(commands, DiscordKeys.DISCORD_GUILD_ID as string)

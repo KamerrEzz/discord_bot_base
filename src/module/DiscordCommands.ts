@@ -10,7 +10,7 @@ class DiscordComman {
   description_localizations: { [key: string]: string } | undefined
   options: CommandOption[] | undefined
 
-  constructor(opts: Command) {
+  constructor (opts: Command) {
     this.type = opts.type
     this.name = opts.name
     this.name_localizations = opts.name_localizations
@@ -19,24 +19,24 @@ class DiscordComman {
     this.options = opts.options
   }
 
-  execute(
+  execute (
     _client: DiscordClient,
     _int: ChatInputCommandInteraction,
     _custom?: Object | string[]
   ) {}
 
-  build() {
+  build () {
     return {
       type: this.type,
       name: this.name,
       name_localizations: this.name_localizations,
       description: this.description,
       description_localizations: this.description_localizations,
-      options: this.options,
+      options: this.options
     }
   }
 
-  static get option_types() {
+  static get option_types () {
     return {
       SUB_COMMAND: 1,
       SUB_COMMAND_GROUP: 2,
@@ -47,7 +47,7 @@ class DiscordComman {
       CHANNEL: 7, // eslint-disable-line sort-keys
       ROLE: 8,
       MENTIONABLE: 9, // eslint-disable-line sort-keys
-      NUMBER: 10,
+      NUMBER: 10
     }
   }
 }

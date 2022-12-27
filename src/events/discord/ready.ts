@@ -10,9 +10,7 @@ const ready: DiscordEvent = {
       `Logged in as ${client?.user?.tag}!`
     )
     client.publishCommands()
-
-    
-  },
+  }
 }
 
 export default ready

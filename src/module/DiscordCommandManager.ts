@@ -2,7 +2,7 @@ import { DiscordClient } from '@Client/Discord'
 import { ChatInputCommandInteraction } from 'discord.js'
 
 class DiscordCommandManger {
-  slashCommand(
+  slashCommand (
     client: DiscordClient,
     interaction: ChatInputCommandInteraction
   ) {
@@ -15,15 +15,14 @@ class DiscordCommandManger {
         const subCommandClass = client.subCommands.get(
           `${interaction.commandName}.${interaction.options.getSubcommand()}`
         )
-        if (subCommandClass)
-          return subCommandClass.execute(client, interaction)
-        else
+        if (subCommandClass != null) { return subCommandClass.execute(client, interaction) } else {
           return interaction.reply({
             content: 'No se ha encontrado el comando',
-            ephemeral: true,
+            ephemeral: true
           })
+        }
       }
-      if (command) return command.execute(client, interaction)
+      if (command != null) return command.execute(client, interaction)
     } catch (error: any) {
       client.logger(
         'DiscordCommandManger-slashCommand',
@@ -32,13 +31,13 @@ class DiscordCommandManger {
       )
       return interaction.reply({
         content: 'There was an error while executing this command!',
-        ephemeral: true,
+        ephemeral: true
       })
     }
   }
 
-  buttonCommand(client: DiscordClient, interaction: any) {
-    const customId: Array<string> = interaction.customId.split('-')
+  buttonCommand (client: DiscordClient, interaction: any) {
+    const customId: string[] = interaction.customId.split('-')
 
     // search for the command
     const button = client.buttons.get(interaction.customId)
@@ -49,8 +48,8 @@ class DiscordCommandManger {
 
     let customs: Object = {}
 
-    if (buttonWithCustom) {
-      // @ts-ignore
+    if (buttonWithCustom != null) {
+      // @ts-expect-error
       customs = buttonWithCustom.customId.split('-').reduce((acc, cur, i) => {
         if (cur.includes('{{') && cur.includes('}}')) {
           const key = cur.replace('{{', '').replace('}}', '')
@@ -61,9 +60,8 @@ class DiscordCommandManger {
     }
 
     try {
-      if (button) return button.execute(client, interaction)
-      if (buttonWithCustom)
-        return buttonWithCustom.execute(client, interaction, customs)
+      if (button != null) return button.execute(client, interaction)
+      if (buttonWithCustom != null) { return buttonWithCustom.execute(client, interaction, customs) }
       // else
       //   return interaction.reply({
       //     content: 'Este boton ya no existe!',
@@ -77,13 +75,13 @@ class DiscordCommandManger {
       )
       return interaction.reply({
         content: 'Ha ocurrido un error, contacta a un admin!',
-        ephemeral: true,
+        ephemeral: true
       })
     }
   }
 
-  modalCommand(client: DiscordClient, interaction: any) {
-    const customId: Array<string> = interaction.customId.split('-')
+  modalCommand (client: DiscordClient, interaction: any) {
+    const customId: string[] = interaction.customId.split('-')
 
     const modal = client.modals.get(interaction.customId)
     const modalWithCustom = client.modals.find((modals: any) => {
@@ -92,8 +90,8 @@ class DiscordCommandManger {
 
     let customs: Object = {}
 
-    if (modalWithCustom) {
-      // @ts-ignore
+    if (modalWithCustom != null) {
+      // @ts-expect-error
       customs = modalWithCustom.customId.split('-').reduce((acc, cur, i) => {
         if (cur.includes('{{') && cur.includes('}}')) {
           const key = cur.replace('{{', '').replace('}}', '')
@@ -104,14 +102,13 @@ class DiscordCommandManger {
     }
 
     try {
-      if (modal) return modal.execute(client, interaction)
-      if (modalWithCustom)
-        return modalWithCustom.execute(client, interaction, customs)
-      else
+      if (modal != null) return modal.execute(client, interaction)
+      if (modalWithCustom != null) { return modalWithCustom.execute(client, interaction, customs) } else {
         return interaction.reply({
           content: 'Este modal ya no existe',
-          ephemeral: true,
+          ephemeral: true
         })
+      }
     } catch (error: any) {
       client.logger(
         'DiscordCommandManger-modalCommand',
@@ -120,7 +117,7 @@ class DiscordCommandManger {
       )
       return interaction.reply({
         content: 'Ha ocurrido un error, contacta a un admin!',
-        ephemeral: true,
+        ephemeral: true
       })
     }
   }

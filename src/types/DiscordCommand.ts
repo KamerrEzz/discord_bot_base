@@ -2,7 +2,7 @@ import {
   CommandInteraction,
   Message,
   ModalSubmitInteraction,
-  ChatInputCommandInteraction,
+  ChatInputCommandInteraction
 } from 'discord.js'
 import { DiscordClient } from '@Client/Discord'
 
@@ -108,5 +108,5 @@ export {
   CommandModal,
   ApplicationCommandType,
   CommandMessage,
-  CommandButton,
+  CommandButton
 }

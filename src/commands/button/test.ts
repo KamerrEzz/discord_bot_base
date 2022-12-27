@@ -5,10 +5,8 @@ const AcceptFeedbackSupport: CommandButton = {
   execute: async (_client, _int, custom) => {
     const { id } = custom
 
-    console.log(id);
-    
-    
-  },
+    console.log(id)
+  }
 }
 
 export default AcceptFeedbackSupport

@@ -5,7 +5,7 @@ class JsonService {
   folder: string | undefined
   fileName: string
   path: string
-  constructor(opts: { folder?: string; fileName: string; path: string }) {
+  constructor (opts: { folder?: string, fileName: string, path: string }) {
     this.folder = opts.folder
     this.fileName = opts.fileName
     this.path = opts.path
@@ -13,7 +13,7 @@ class JsonService {
     this.initialize()
   }
 
-  initialize() {
+  initialize () {
     if (!fs.existsSync(this.path)) {
       fs.mkdirSync(this.path, { recursive: true })
     }
@@ -23,17 +23,17 @@ class JsonService {
     }
   }
 
-  getFilePath() {
+  getFilePath () {
     return path.join(this.path, this.folder || '', this.fileName)
   }
 
-  read() {
+  read () {
     const filePath = this.getFilePath()
     const file = fs.readFileSync(filePath, 'utf-8')
     return JSON.parse(file)
   }
 
-  write(data: any) {
+  write (data: any) {
     const filePath = this.getFilePath()
     const file = JSON.stringify(data, null, 2)
     fs.writeFileSync(filePath, file)
@@ -41,7 +41,7 @@ class JsonService {
     return true
   }
 
-  update(opts: { where: string; data: object }) {
+  update (opts: { where: string, data: object }) {
     // json = { "users": [] } or { "users": { '123123123': [] }
     // where = 'users' or 'users.123123123'
 
@@ -63,7 +63,7 @@ class JsonService {
     }
   }
 
-  push(where: string, data: any) {
+  push (where: string, data: any) {
     // json = { "users": [] } or { "users": { '123123123': [] }
     // where = 'users' or 'users.123123123'
     const filePath = this.getFilePath()
@@ -88,7 +88,7 @@ class JsonService {
     return true
   }
 
-  delete() {
+  delete () {
     const filePath = this.getFilePath()
     fs.unlinkSync(filePath)
   }

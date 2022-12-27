@@ -8,6 +8,6 @@ const client = new DiscordClient(DiscordClientOpts)
 client.login(DiscordKeys.DISCORD_TOKEN)
 
 process.on('unhandledRejection', (error: any) => {
-  console.log('Unhandled Rejection at:', error.stack || error);
+  console.log('Unhandled Rejection at:', error.stack || error)
   client.logger('UnhandledRejection', 'info', error.message)
 })

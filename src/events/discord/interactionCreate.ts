@@ -7,7 +7,7 @@ const interactionCreate: DiscordEvent = {
   once: false,
   execute: async (client, interaction) => {
     if (interaction.isCommand()) {
-      return DiscordCommandManager.slashCommand(client, interaction)
+      return await DiscordCommandManager.slashCommand(client, interaction)
     }
 
     if (interaction.isButton()) {
@@ -17,7 +17,7 @@ const interactionCreate: DiscordEvent = {
     if (interaction.isModalSubmit()) {
       return DiscordCommandManager.modalCommand(client, interaction)
     }
-  },
+  }
 }
 
 export default interactionCreate

@@ -7,5 +7,5 @@ addAliases({
   '@Client': __dirname + '/client',
   '@Types': __dirname + '/types',
   '@Services': __dirname + '/services',
-  '@Module': __dirname + '/module',
+  '@Module': __dirname + '/module'
 })

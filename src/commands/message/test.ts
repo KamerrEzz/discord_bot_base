@@ -5,7 +5,7 @@ const ping: CommandMessage = {
   description: 'test!',
   execute: async (_client, message, _args) => {
     message.channel.send('test')
-  },
+  }
 }
 
 export default ping

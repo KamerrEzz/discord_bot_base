@@ -11,14 +11,14 @@ const Logger: Logger = (services: string, level: level, message: string) => {
     defaultMeta: { service: services },
     format: winston.format.combine(
       winston.format.timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss',
+        format: 'YYYY-MM-DD HH:mm:ss'
       }),
       winston.format.colorize(),
       winston.format.printf(
         (info) =>
           `${new Date(info.timestamp).toLocaleString('es-ES', {
             timeZone: 'America/Mexico_City',
-            hour12: true,
+            hour12: true
           })} [${services}] ${info.level}: ${info.message}`
       )
     ),
@@ -27,15 +27,15 @@ const Logger: Logger = (services: string, level: level, message: string) => {
       new winston.transports.File({
         filename: 'logs/error.log',
         format: winston.format.errors({ stack: true }),
-        level: 'error',
-      }),
-    ],
+        level: 'error'
+      })
+    ]
   })
   logger.log(level, message)
 
   if (level === 'error') {
     fs.writeFile('logs/temporal.txt', message, (err) => {
-      if (err) {
+      if (err != null) {
         console.log(err)
       }
       Webhook(`${WEBHOOk_ERROR}`)
@@ -44,9 +44,9 @@ const Logger: Logger = (services: string, level: level, message: string) => {
           files: [
             {
               attachment: 'logs/temporal.txt',
-              name: 'error.txt',
-            },
-          ],
+              name: 'error.txt'
+            }
+          ]
         })
         .then(() => {
           fs.unlinkSync('logs/temporal.txt')
