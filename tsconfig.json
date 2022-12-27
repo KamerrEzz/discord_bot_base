@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["ESNext"],
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "sourceMap": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "preserveConstEnums": true,
+    "allowJs": true,
+    "paths": {
+      "@Utils/*": ["src/utils/*"],
+      "@Config/*": ["src/config/*"],
+      "@Client/*": ["src/client/*"],
+      "@Types/*": ["src/types/*"],
+      "@Services/*": ["src/services/*"],
+      "@Module/*": ["src/module/*"]
+    },
+    /* Type Checking */
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "include": ["src/**/*"]
+}
