@@ -44,6 +44,7 @@ interface ITopic {
     status: string
 }
 
+let topics = json.read() as {[key: string]: ITopic};
 let topic: ITopic = topics[thread as string];
 
 topic.topic = {
