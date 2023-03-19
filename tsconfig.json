@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "commonjs",
     "target": "es6",
     "outDir": "dist",
@@ -17,16 +19,27 @@
     "sourceMap": false,
     "strict": true,
     "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
     "preserveConstEnums": true,
     "allowJs": true,
     "paths": {
-      "@Utils/*": ["src/utils/*"],
-      "@Config/*": ["src/config/*"],
-      "@Client/*": ["src/client/*"],
-      "@Types/*": ["src/types/*"],
-      "@Services/*": ["src/services/*"],
-      "@Module/*": ["src/module/*"]
+      "@Utils/*": [
+        "src/utils/*"
+      ],
+      "@Config/*": [
+        "src/config/*"
+      ],
+      "@Client/*": [
+        "src/client/*"
+      ],
+      "@Types/*": [
+        "src/types/*"
+      ],
+      "@Services/*": [
+        "src/services/*"
+      ],
+      "@Module/*": [
+        "src/module/*"
+      ]
     },
     /* Type Checking */
     "noImplicitAny": true,
@@ -38,6 +51,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["node_modules", "**/*.spec.ts"],
-  "include": ["src/**/*"]
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }

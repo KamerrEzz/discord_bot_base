@@ -2,7 +2,8 @@ import {
   CommandInteraction,
   Message,
   ModalSubmitInteraction,
-  ChatInputCommandInteraction
+  ChatInputCommandInteraction,
+  SelectMenuInteraction
 } from 'discord.js'
 import { DiscordClient } from '@Client/Discord'
 
@@ -100,6 +101,15 @@ interface CommandModal {
   ) => Promise<void>
 }
 
+interface CommandMenu {
+  customId: string
+  execute: (
+    client: DiscordClient,
+    int: SelectMenuInteraction,
+    custom: ButtonCustom
+  ) => Promise<void>
+}
+
 export {
   Command,
   SubCommand,
@@ -108,5 +118,6 @@ export {
   CommandModal,
   ApplicationCommandType,
   CommandMessage,
-  CommandButton
+  CommandButton,
+  CommandMenu
 }

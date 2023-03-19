@@ -16,6 +16,7 @@ export class DiscordClient extends Client {
   buttons: Collection<string, DiscordComman>
   modals: Collection<string, DiscordComman>
   MessageCommand: Collection<any, any>
+  menus: Collection<string, DiscordComman>
 
   constructor (opts: ClientOptions) {
     super(opts)
@@ -27,6 +28,7 @@ export class DiscordClient extends Client {
     this.buttons = new Collection()
     this.modals = new Collection()
     this.MessageCommand = new Collection()
+    this.menus = new Collection()
     this.loadEvents()
     this.loadCommands()
     this.logger('DiscordClient', 'info', 'Discord client loaded')

@@ -4,7 +4,7 @@ import {
   WebhookClient,
   ButtonBuilder,
   ButtonStyle,
-  SelectMenuBuilder,
+  StringSelectMenuBuilder,
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
@@ -55,7 +55,7 @@ const SelectMenu = (
     }
   ]
 ) => {
-  const selectMenu = new SelectMenuBuilder()
+  const selectMenu = new StringSelectMenuBuilder()
     .setCustomId(id)
     .setPlaceholder(label)
     .addOptions(options)
